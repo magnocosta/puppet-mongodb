@@ -6,7 +6,7 @@ class mongodb::install {
     exec {"get-mongodb-key":
         command => "/usr/bin/apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10",
         unless => "/usr/bin/apt-key list| /bin/grep -c 10gen",
-        require => Package["Common::basic"]
+        require => Class["common::basic"]
     }
 
     exec {"install-mongodb-repo":
