@@ -22,9 +22,21 @@ class mongodb::install {
         require => Exec['install-mongodb-repo']
     }
 
-    package {"mongodb-10gen":
+    package { "mongodb-10gen":
         ensure => "present",    
         require => Exec['apt-update-mongodb']
+    }
+
+    file { "/data":
+        ensure => "directory",
+        alias => "create-data-dir",
+        require => Package["mongodb-10gen"]
+    }
+
+    file { "/data/db":
+        ensure => "directory",
+        alias => "create-mongodb-dir",
+        require => File["create-data-dir"]
     }
 
 }
